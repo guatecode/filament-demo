@@ -38,6 +38,11 @@ class Customer extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function visibleComments(): HasMany
+    {
+        return $this->hasMany(Comment::class)->where('is_visible', true);
+    }
+
     public function payments(): HasManyThrough
     {
         return $this->hasManyThrough(Payment::class, Order::class, 'shop_customer_id');

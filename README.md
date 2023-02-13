@@ -30,11 +30,7 @@ Generate application key:
 php artisan key:generate
 ```
 
-Create an SQLite database. You can also use another database (MySQL, Postgres), simply update your configuration accordingly.
-
-```sh
-touch database/database.sqlite
-```
+Create a Mysql database called `filament-demo` or update the .env file with your own database.
 
 Run database migrations:
 

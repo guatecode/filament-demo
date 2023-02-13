@@ -73,6 +73,9 @@ class CustomerResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('visible_comments_count')
+                    ->counts('visibleComments')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(isIndividual: true)
                     ->sortable(),
@@ -92,13 +95,7 @@ class CustomerResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make()
-                    ->action(function () {
-                        Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
-                            ->warning()
-                            ->send();
-                    }),
+                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 

@@ -136,6 +136,7 @@ class PostResource extends Resource
                     ->label('Published Date')
                     ->date(),
             ])
+            ->deferLoading()
             ->filters([
                 Tables\Filters\Filter::make('published_at')
                     ->form([

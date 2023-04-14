@@ -14,6 +14,8 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\TernaryFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -160,55 +162,23 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\SpatieMediaLibraryImageColumn::make('product-image')
-                    ->label('Image')
-                    ->collection('product-images'),
+                Tables\Columns\TextColumn::make('id')
+                    ->label('id')
+                    ->searchable()
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('name')
                     ->label('Name')
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('brand.name')
-                    ->searchable()
-                    ->sortable()
-                    ->toggleable(),
-
-                Tables\Columns\TextColumn::make('price')
-                    ->label('Price')
-                    ->searchable()
+                Tables\Columns\ToggleColumn::make('is_visible')
+                    ->label('Visibility')
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('sku')
-                    ->searchable()
-                    ->sortable()
-                    ->toggleable(),
-
-                Tables\Columns\TextColumn::make('qty')
-                    ->searchable()
-                    ->sortable()
-                    ->toggleable(),
-
-                Tables\Columns\TextColumn::make('security_stock')
-                    ->searchable()
-                    ->sortable()
-                    ->toggleable()
-                    ->toggledHiddenByDefault(),
-
-                Tables\Columns\BooleanColumn::make('is_visible')
-                    ->label('Visibility')
-                    ->sortable()
-                    ->toggleable(),
-
-                Tables\Columns\TextColumn::make('published_at')
-                    ->label('Publish Date')
-                    ->date()
-                    ->sortable()
-                    ->toggleable()
-                    ->toggledHiddenByDefault(),
             ])
             ->filters([
-                //
+                TernaryFilter::make('is_visible'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
